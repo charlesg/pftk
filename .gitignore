@@ -1,7 +1,7 @@
 # Ignoring the swp files created by vim
 *.swp
-
-*.pyc
+*.py[co]
+*.egg-info
 
 ez_setup.pyc
 

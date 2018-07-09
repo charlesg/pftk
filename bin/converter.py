@@ -1,4 +1,6 @@
 '''
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+
 (c) 2011, 2012 Georgia Tech Research Corporation
 This source code is released under the New BSD license.  Please see
 http://wiki.quantsoftware.org/index.php?title=QSTK_License
@@ -22,14 +24,14 @@ Created on Jan 1, 2011
 #
 
 from pylab import *
-from QSTK.qstkutil import DataAccess as da
-from QSTK.qstkutil import tsutil as tsu
+from pftk.pftkutil import DataAccess as da
+from pftk.pftkutil import tsutil as tsu
 # from quicksim import quickSim
 from copy import deepcopy
 import math
 from pandas import *
 import matplotlib.pyplot as plt
-import cPickle
+import _pickle
 
 def fundsToPNG(funds,output_file):
 	plt.clf()
@@ -47,7 +49,7 @@ def fundsToPNG(funds,output_file):
 def fundsAnalysisToPNG(funds,output_file):
 	plt.clf()
 	if(type(funds)!=type(list())):
-		print 'fundsmatrix only contains one timeseries, not able to analyze.'
+		print('fundsmatrix only contains one timeseries, not able to analyze.')
 	#convert to daily returns
 	count=list()
 	dates=list()

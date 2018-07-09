@@ -12,22 +12,23 @@ Created on January, 24, 2013
 '''
 
 # QSTK Imports
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
+import pftk.pftkutil.qsdateutil as du
+import pftk.pftkutil.tsutil as tsu
+import pftk.pftkutil.data_access as da
 
 # Third Party Imports
 import datetime as dt
 import matplotlib.pyplot as plt
 import pandas as pd
 
-print "Pandas Version", pd.__version__
+print("Pandas Version", pd.__version__)
 
 
 def main():
     ''' Main Function'''
 
     # List of symbols
+    #s_symbols = ["AGP", "CORP", "IJR"]
     ls_symbols = ["AAPL", "GLD", "GOOG", "$SPX", "XOM"]
 
     # Start and End date of the charts
@@ -40,8 +41,8 @@ def main():
     # Get a list of trading days between the start and the end.
     ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
-    # Creating an object of the dataaccess class with Yahoo as the source.
-    c_dataobj = da.DataAccess('Yahoo')
+    # Creating an object of the dataaccess class
+    c_dataobj = da.DataAccess('EODHistoricalData')
 
     # Keys to be read from the data, it is good to read everything in one go.
     ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
