@@ -1,48 +1,53 @@
-##QSTK
-QuantSoftware Toolkit [![PyPI version](https://badge.fury.io/py/QSTK.png)](http://badge.fury.io/py/QSTK)
+# pftk
 
-##Website & Documentation
-[wiki.quantsoftware.org](http://wiki.quantsoftware.org)
+Python Finance Toolkit [![PyPI version](https://badge.fury.io/py/QSTK.png)](http://badge.fury.io/py/QSTK)
 
-##Source Repository
-[https://github.com/QuantSoftware/QuantSoftwareToolkit](https://github.com/QuantSoftware/QuantSoftwareToolkit)
+## Website & Documentation
 
-##Dependencies
+[www.unixrealm.com/pftk](http://www.unixrealm.com/pftk)
+
+## Source Repository
+
+[https://github.com/charlesg/pftk](https://github.com/charlesg/pftk.git)
+
+## Dependencies
+
 - numpy >= 1.6.1,
 - scipy >= 0.9.0,
 - matplotlib >= 1.1.0,
 - pandas >= 0.7.3,
-- python-dateutil==1.5,
+- python-dateutil >= 1.5,
 - cvxopt >= 1.1.3,
 - scikit-learn >= 0.11
 
 ### Vagrant Image
+
 Vagrant image with QSTK installed can be found at [https://github.com/Wesseldr/vagrant-QSTK](https://github.com/Wesseldr/vagrant-QSTK)
 
-##Author
+## Author
+
+- Charles Gagnon - charlesg at unixrealm.com
+
+### Original Authors
+
 - [Prof. Tucker Balch](http://www.cc.gatech.edu/~tucker/)
 - [Sourabh Bajaj](http://www.sourabhbajaj.com/)
 - [John Cornwell](https://github.com/JWCornV)
 
-##License
-The QuantSoftware ToolKit (QSTK) is released under the New BSD License as follows:
+Python Finance Toolkit is a fork from QSTK from Professor Tucker Balch. Initial QSTK code at:
 
-Copyright (c) 2011, 2012, Georgia Tech Research Corporation (GTRC) All rights reserved.
+* Website & Documentation [wiki.quantsoftware.org](http://wiki.quantsoftware.org)
+* Source Repository [https://github.com/QuantSoftware/QuantSoftwareToolkit](https://github.com/QuantSoftware/QuantSoftwareToolkit)
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+## Contributing
 
- 1) Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
- 2) Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
-  in the documentation and/or other materials provided with the distribution. 
+## Versioning
 
- 3) Neither the name of the Georgia Tech Research Corporation nor the names of its contributors may be used to endorse or promote
-  products derived from this software without specific prior written permission. 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
-BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-IN NO EVENT SHALL THE GEORGIA TECH RESEARCH CORPORATION BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
-OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
-OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
-POSSIBILITY OF SUCH DAMAGE.
+## License
+
+This project is licensed under the New BSD License - see the [LICENSE.md](LICENSE.md) file for details.
+
