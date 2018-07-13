@@ -1,7 +1,3 @@
----
-layout: home
----
-
 If you are in a hurry, you can skip to the  [[QSToolKit_Installation_Guide]].
 
 [[File:Eventstudy1.png|300px|thumb|right|How stocks perform after a market event.]]
