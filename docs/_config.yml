@@ -8,9 +8,4 @@ twitter_username: unixrealm
 github_username:  charlesg
 
 # Build settings
-markdown: kramdown
-
 theme: jekyll-theme-architect
-plugins:
-  - jekyll-feed
-  
