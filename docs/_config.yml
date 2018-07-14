@@ -1,9 +1,7 @@
 title: Python Financial Tookit - pftk
 email: charlesg@unixrealm.com
 description: >- # this means to ignore newlines until "baseurl:"
-  The Pyhon Financia Toolkit (pftk) is a Python-based open source software framework designed to support portfolio construction and management.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+  The Pyhon Financial Toolkit (pftk) is a Python-based open source software framework designed to support portfolio construction and management.
 twitter_username: unixrealm
 github_username:  charlesg
 repository: charlesg/pftk
