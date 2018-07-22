@@ -1,27 +1,34 @@
 '''
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
+
 (c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+This source code is released under the New BSD license.
 
-Created on January, 24, 2013
-
-@author: Sourabh Bajaj
-@contact: sourabhbajaj@gatech.edu
+@author: Charles Gagnon
+@contact: charles@unixrealm.com
 @summary: Example tutorial code.
+
+This turorial requires a LIST of stocks. Each data source can save lists
+in ${QSDATA}/${SOURCE}/List
+
+In my example, I copy:
+
+cp tutorial4_sp5002012.txt /var/tmp/QSDATA/EODHistoricalData/Lists/sp5002012.txt
+
 '''
 
-# QSTK Imports
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
+# Pftk Imports
+import pftk.pftkutil.qsdateutil as du
+import pftk.pftkutil.tsutil as tsu
+import pftk.pftkutil.data_access as da
 
 # Third Party Imports
 import datetime as dt
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import cPickle
+import pickle
 
 
 def main():
@@ -38,7 +45,7 @@ def main():
     ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
     # Creating an object of the dataaccess class with Yahoo as the source.
-    c_dataobj = da.DataAccess('Yahoo')
+    c_dataobj = da.DataAccess('EODHistoricalData')
 
     # List of symbols - First 20
     ls_symbols = c_dataobj.get_symbols_from_list('sp5002012')
@@ -72,7 +79,7 @@ def main():
 
     # Create the outpul pickle file for the dataframe.
     output = open('allocation.pkl', 'wb')
-    cPickle.dump(df_alloc, output)
+    pickle.dump(df_alloc, output)
 
 if __name__ == '__main__':
     main()

@@ -1,17 +1,15 @@
 '''
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
+
 (c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+This source code is released under the New BSD license.
 
-Created on May 14, 2012
-
-@author: Sourabh Bajaj
-@contact: sourabh@sourabhbajaj.com
+@author: Charles Gagnon
+@contact: charlesg@unixrealm.com
 @summary: Backtester
 
 '''
-
 
 # Python imports
 from datetime import timedelta
@@ -21,8 +19,8 @@ import pandas as pand
 import numpy as np
 from copy import deepcopy
 
-# QSTK imports
-from QSTK.qstkutil import tsutil as tsu
+# Pftk imports
+from pftk.pftkutil import tsutil as tsu
 
 def _calculate_leverage(values_by_stock, ts_leverage, ts_long_exposure, ts_short_exposure, ts_net_exposure):
     """
@@ -43,15 +41,11 @@ def _calculate_leverage(values_by_stock, ts_leverage, ts_long_exposure, ts_short
                     f_long = f_long + val
                 else:
                     f_short = f_short + val
-                
-        f_lev = (f_long + abs(f_short)) \
-                /(f_long + r_val.values[-1] + f_short)
-        f_net = (f_long - abs(f_short)) \
-                /(f_long + r_val.values[-1] + f_short)
-        f_long_ex = (f_long) \
-                /(f_long + r_val.values[-1] + f_short)
-        f_short_ex = (abs(f_short)) \
-                /(f_long + r_val.values[-1] + f_short)                
+
+        f_lev = (f_long + abs(f_short)) / (f_long + r_val.values[-1] + f_short)
+        f_net = (f_long - abs(f_short)) / (f_long + r_val.values[-1] + f_short)
+        f_long_ex = (f_long) / (f_long + r_val.values[-1] + f_short)
+        f_short_ex = (abs(f_short)) / (f_long + r_val.values[-1] + f_short)                
 
         if np.isnan(f_lev): f_lev = 0
         if np.isnan(f_net): f_net = 0
@@ -161,12 +155,12 @@ def tradesim( alloc, df_historic, f_start_cash, i_leastcount=1,
     """
 
     if alloc.index[-1] > df_historic.index[-1]:
-        print "Historical Data not sufficient"
+        print("Historical Data not sufficient")
         indices, = np.where(alloc.index <= df_historic.index[-1])
         alloc = alloc.reindex(index = alloc.index[indices])
 
     if alloc.index[0] < df_historic.index[0]:
-        print "Historical Data not sufficient"
+        print("Historical Data not sufficient")
         indices, = np.where(alloc.index >= df_historic.index[0])
         alloc = alloc.reindex(index = alloc.index[indices])
 
@@ -176,7 +170,7 @@ def tradesim( alloc, df_historic, f_start_cash, i_leastcount=1,
 
     #write column headings
     if log!="false":
-        print "writing transaction log to "+log
+        print("writing transaction log to "+log)
         log_file.write("Symbol,Company Name,Txn Type,Txn Date/Time, Gross Leverage, Net Leverage,# Shares,Price,Txn Value,Portfolio # Shares,Portfolio Value,Commission,Slippage(10BPS),Comments\n")
 
     #a dollar is always worth a dollar
@@ -473,5 +467,3 @@ def tradesim_comb( df_alloc, d_data, f_start_cash, i_leastcount=1,
                    b_followleastcount, f_slippage, f_minimumcommision,
                    f_commision_share, i_target_leverage, f_rate_borrow, log, b_exposure)
 
-if __name__ == '__main__':
-    print "Done"

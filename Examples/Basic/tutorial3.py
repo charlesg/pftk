@@ -1,20 +1,19 @@
 '''
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
+
 (c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+This source code is released under the New BSD license.
 
-Created on January, 24, 2013
-
-@author: Sourabh Bajaj
-@contact: sourabhbajaj@gatech.edu
+@author: Charles Gagnon
+@contact: charles@unixrealm.com
 @summary: Example tutorial code.
 '''
 
-# QSTK Imports
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
+# Pftk Imports
+import pftk.pftkutil.qsdateutil as du
+import pftk.pftkutil.tsutil as tsu
+import pftk.pftkutil.data_access as da
 
 # Third Party Imports
 import datetime as dt
@@ -22,17 +21,16 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-
 def main():
     ''' Main Function'''
     # Reading the portfolio
-    na_portfolio = np.loadtxt('tutorial3portfolio.csv', dtype='S5,f4',
+    na_portfolio = np.loadtxt('tutorial3_portfolio.csv', dtype='U5,f4',
                         delimiter=',', comments="#", skiprows=1)
-    print na_portfolio
+    print(na_portfolio)
 
     # Sorting the portfolio by symbol name
     na_portfolio = sorted(na_portfolio, key=lambda x: x[0])
-    print na_portfolio
+    print(na_portfolio)
 
     # Create two list for symbol names and allocation
     ls_port_syms = []
@@ -42,13 +40,14 @@ def main():
         lf_port_alloc.append(port[1])
 
     # Creating an object of the dataaccess class with Yahoo as the source.
-    c_dataobj = da.DataAccess('Yahoo')
+    c_dataobj = da.DataAccess('EODHistoricalData')
     ls_all_syms = c_dataobj.get_all_symbols()
+    print(ls_all_syms)
     # Bad symbols are symbols present in portfolio but not in all syms
     ls_bad_syms = list(set(ls_port_syms) - set(ls_all_syms))
 
     if len(ls_bad_syms) != 0:
-        print "Portfolio contains bad symbols : ", ls_bad_syms
+        print("Portfolio contains bad symbols : ", ls_bad_syms)
 
     for s_sym in ls_bad_syms:
         i_index = ls_port_syms.index(s_sym)

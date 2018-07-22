@@ -1,10 +1,9 @@
+# (c) 2018, charlesg@unixrealm.com - Fork from QSTK
+# https://charlesg.github.io/pftk/
+
 # (c) 2011, 2012 Georgia Tech Research Corporation
-# This source code is released under the New BSD license.  Please see
-# http://wiki.quantsoftware.org/index.php?title=QSTK_License
-# for license details.
+# This source code is released under the New BSD license. 
 #
-# Created on October <day>, 2011
-#
-# @author: Vishal Shekhar
-# @contact: mailvishalshekhar@gmail.com
+# @author: Charles Gagnon
+# @contact: charlesg@unixrealm.com
 # @summary: Init

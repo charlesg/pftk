@@ -1,14 +1,13 @@
 '''
 (c) 2018, charlesg@unixrealm.com - Fork from QSTK
-(c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+https://charlesg.github.io/pftk/
 
-Created on Jan 15, 2013
+(c) 2011, 2012 Georgia Tech Research Corporation
+This source code is released under the New BSD license.
 
 @author: Sourabh Bajaj
-@contact: sourabhbajaj@gatech.edu
+@maintainer: Charles Gagnon
+@contact: charlesg@unixrealm.com
 @summary: Data Access python library.
 
 '''

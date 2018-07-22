@@ -1,16 +1,14 @@
 '''
 (c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
+
 (c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+This source code is released under the New BSD license.
 
-Created on Jan 1, 2011
-
-@author:Drew Bratcher
-@contact: dbratcher@gatech.edu
+@author: Drew Bratcher
+@maintainer: Charles Gagnon
+@contact: charlesg@unixrealm.com
 @summary: Contains tutorial for backtester and report.
-
 '''
 
 import math
@@ -33,9 +31,9 @@ def daily(lfFunds):
         ldt_timestamps = du.getNYSEdays(lfFunds.index[0], lfFunds.index[-1], dt.timedelta(hours=16))
         lfFunds = lfFunds.reindex(index=ldt_timestamps, method='ffill')
     nds = np.asarray(deepcopy(lfFunds))
-    s= np.shape(nds)
-    if len(s)==1:
-        nds=np.expand_dims(nds,1)
+    s = np.shape(nds)
+    if len(s) == 1:
+        nds = np.expand_dims(nds, 1)
     returnize0(nds)
     return(nds)
 
@@ -514,7 +512,7 @@ def OptPort( naData, fTarget, naLower=None, naUpper=None, naExpected=None, s_typ
         b_error = True
 
     if b_error == True:
-        print("Optimization not Possible")
+        #print("Optimization not Possible")
         na_port = naLower*-1
         if sum(na_port) < 1:
             if sum(naUpper) == 1:
@@ -541,7 +539,7 @@ def OptPort( naData, fTarget, naLower=None, naUpper=None, naExpected=None, s_typ
     return (lnaPortfolios, fPortDev, b_error)
 
 
-def getRetRange( rets, naLower, naUpper, naExpected = "False", s_type = "long"):
+def getRetRange( rets, naLower, naUpper, naExpected = None, s_type = "long"):
     """
     @summary Returns the range of possible returns with upper and lower bounds on the portfolio participation
     @param rets: Expected returns
@@ -551,13 +549,17 @@ def getRetRange( rets, naLower, naUpper, naExpected = "False", s_type = "long"):
     """    
     
     # Calculate theoretical minimum and maximum theoretical returns """
-    fMin = 0
-    fMax = 0
+    fMin = 0.0
+    fMax = 0.0
 
     rets = deepcopy(rets)
     
-    if naExpected == "False":
-        naExpected = np.average( rets, axis=0 )
+    # This pukes on FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+    # Not sure we actually need this since it's initialized to "False" above.
+    
+    #print(naExpected)
+    #if naExpected == None:
+    #    naExpected = np.average( rets, axis=0 )
         
     na_signs = np.sign(naExpected)
     indices,  = np.where(na_signs == 0)

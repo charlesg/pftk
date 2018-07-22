@@ -1,20 +1,19 @@
 '''
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
+
 (c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+This source code is released under the New BSD license.  
 
-Created on January, 24, 2013
-
-@author: Sourabh Bajaj
-@contact: sourabhbajaj@gatech.edu
+@author: Charles Gagnon
+@contact: charlesg@unixrealm.com
 @summary: Example tutorial code.
 '''
 
-# QSTK Imports
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
+# Pftk Imports
+import pftk.pftkutil.qsdateutil as du
+import pftk.pftkutil.tsutil as tsu
+import pftk.pftkutil.data_access as da
 
 # Third Party Imports
 import datetime as dt
@@ -22,22 +21,21 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-
 def main():
     ''' Main Function'''
 
     # Reading the csv file.
-    na_data = np.loadtxt('example-data.csv', delimiter=',', skiprows=1)
+    na_data = np.loadtxt('tutorial2_data.csv', delimiter=',', skiprows=1)
     na_price = na_data[:, 3:]  # Default np.loadtxt datatype is float.
     na_dates = np.int_(na_data[:, 0:3])  # Dates should be int
     ls_symbols = ['$SPX', 'XOM', 'GOOG', 'GLD']
 
     # Printing the first 5 rows
-    print "First 5 rows of Price Data:"
-    print na_price[:5, :]
+    print("First 5 rows of Price Data:")
+    print(na_price[:5, :])
     print
-    print "First 5 rows of Dates:"
-    print na_dates[:5, :]
+    print("First 5 rows of Dates:")
+    print(na_dates[:5, :])
 
     # Creating the timestamps from dates read
     ldt_timestamps = []

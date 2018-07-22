@@ -4,7 +4,7 @@ Python Finance Toolkit [![PyPI version](https://badge.fury.io/py/QSTK.png)](http
 
 ## Website & Documentation
 
-[www.unixrealm.com/pftk](http://www.unixrealm.com/pftk)
+[https://charlesg.github.io/pftk/](https://charlesg.github.io/pftk/)
 
 ## Source Repository
 
@@ -26,7 +26,7 @@ Vagrant image with QSTK installed can be found at [https://github.com/Wesseldr/v
 
 ## Author
 
-- Charles Gagnon - charlesg at unixrealm.com
+- Charles Gagnon - charlesg at unixrealm.com - https://www.unixrealm.com
 
 ### Original Authors
 

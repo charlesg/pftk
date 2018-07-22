@@ -1,17 +1,16 @@
 '''
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
+
 (c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+This source code is released under the New BSD license. 
 
-Created on January, 24, 2013
-
-@author: Sourabh Bajaj
-@contact: sourabhbajaj@gatech.edu
+@author: Charles Gagnon
+@contact: charlesg@unixrealm.com
 @summary: Example tutorial code.
 '''
 
-# QSTK Imports
+# Pftk Imports
 import pftk.pftkutil.qsdateutil as du
 import pftk.pftkutil.tsutil as tsu
 import pftk.pftkutil.data_access as da
@@ -21,15 +20,11 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import pandas as pd
 
-print("Pandas Version", pd.__version__)
-
-
 def main():
     ''' Main Function'''
 
     # List of symbols
-    #s_symbols = ["AGP", "CORP", "IJR"]
-    ls_symbols = ["AAPL", "GLD", "GOOG", "$SPX", "XOM"]
+    ls_symbols = ["AAPL", "GLD", "IJR", "SPY", "XOM"]
 
     # Start and End date of the charts
     dt_start = dt.datetime(2006, 1, 1)

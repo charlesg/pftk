@@ -1,20 +1,20 @@
 '''
-(c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
 
-Created on January, 24, 2013
+(c) 2011, 2012 Georgia Tech Research Corporation
+This source code is released under the New BSD license.
 
 @author: Sourabh Bajaj
-@contact: sourabhbajaj@gatech.edu
+@maintainer: Charles Gagnon
+@contact: charlesg@unixrealm.com
 @summary: Demonstrates the use of the CVXOPT portfolio optimization call.
 '''
 
 # QSTK Imports
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
+import pftk.pftkutil.qsdateutil as du
+import pftk.pftkutil.tsutil as tsu
+import pftk.pftkutil.data_access as da
 
 # Third Party Imports
 import datetime as dt
@@ -59,10 +59,10 @@ def main():
     '''Main Function'''
 
     # S&P 100
-    ls_symbols = ['AAPL', 'ABT', 'ACN', 'AEP', 'ALL', 'AMGN', 'AMZN', 'APC', 'AXP', 'BA', 'BAC', 'BAX', 'BHI', 'BK', 'BMY', 'BRK.B', 'CAT', 'C', 'CL', 'CMCSA', 'COF', 'COP', 'COST', 'CPB', 'CSCO', 'CVS', 'CVX', 'DD', 'DELL', 'DIS', 'DOW', 'DVN', 'EBAY', 'EMC', 'EXC', 'F', 'FCX', 'FDX', 'GD', 'GE', 'GILD', 'GOOG', 'GS', 'HAL', 'HD', 'HNZ', 'HON', 'HPQ', 'IBM', 'INTC', 'JNJ', 'JPM', 'KFT', 'KO', 'LLY', 'LMT', 'LOW', 'MA', 'MCD', 'MDT', 'MET', 'MMM', 'MO', 'MON', 'MRK', 'MS', 'MSFT', 'NKE', 'NOV', 'NSC', 'NWSA', 'NYX', 'ORCL', 'OXY', 'PEP', 'PFE', 'PG', 'PM', 'QCOM', 'RF', 'RTN', 'SBUX', 'SLB', 'HSH', 'SO', 'SPG', 'T', 'TGT', 'TWX', 'TXN', 'UNH', 'UPS', 'USB', 'UTX', 'VZ', 'WAG', 'WFC', 'WMB', 'WMT', 'XOM']
+    ls_symbols = ['AAPL', 'ABT', 'ACN', 'AEP', 'ALL', 'AMGN', 'AMZN', 'APC', 'AXP', 'BA', 'BAC', 'BAX', 'BHI', 'BK', 'BMY', 'CAT', 'C', 'CL', 'CMCSA', 'COF', 'COP', 'COST', 'CPB', 'CSCO', 'CVS', 'CVX', 'DD', 'DELL', 'DIS', 'DOW', 'DVN', 'EBAY', 'EMC', 'EXC', 'F', 'FCX', 'FDX', 'GD', 'GE', 'GILD', 'GOOG', 'GS', 'HAL', 'HD', 'HNZ', 'HON', 'HPQ', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'LLY', 'LMT', 'LOW', 'MA', 'MCD', 'MDT', 'MET', 'MMM', 'MO', 'MON', 'MRK', 'MS', 'MSFT', 'NKE', 'NOV', 'NSC', 'NWSA', 'NYX', 'ORCL', 'OXY', 'PEP', 'PFE', 'PG', 'PM', 'QCOM', 'RF', 'RTN', 'SBUX', 'SLB', 'SO', 'SPG', 'T', 'TGT', 'TWX', 'TXN', 'UNH', 'UPS', 'USB', 'UTX', 'VZ', 'WFC', 'WMB', 'WMT', 'XOM']
 
     # Creating an object of the dataaccess class with Yahoo as the source.
-    c_dataobj = da.DataAccess('Yahoo')
+    c_dataobj = da.DataAccess('EODHistoricalData')
 
     ls_all_syms = c_dataobj.get_all_symbols()
     # Bad symbols are symbols present in portfolio but not in all syms

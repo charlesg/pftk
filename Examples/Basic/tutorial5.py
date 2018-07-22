@@ -1,26 +1,24 @@
 '''
-(c) 2011, 2012 Georgia Tech Research Corporation
-This source code is released under the New BSD license.  Please see
-http://wiki.quantsoftware.org/index.php?title=QSTK_License
-for license details.
+(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+https://charlesg.github.io/pftk/
 
-Created on January, 24, 2013
+(c) 2011, 2012 Georgia Tech Research Corporation
+This source code is released under the New BSD license.
 
 @author: Sourabh Bajaj
-@contact: sourabhbajaj@gatech.edu
+@maintainer: Charles Gagnon
+@contact: charlesg@unixrealm.com
 @summary: Contains tutorial for backtester.
 '''
 
-# QSTK Imports
-import QSTK.qstkutil.qsdateutil as du
-import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
-import QSTK.qstktools.report as report
-import QSTK.qstksim as qstksim
+# Pftk Imports
+import pftk.pftkutil.qsdateutil as du
+import pftk.pftkutil.data_access as da
+# Required for Simulations
+from pftk.pftksim.tradesim import *
 
 # Third Party Imports
 import datetime as dt
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
@@ -75,17 +73,20 @@ def main():
     df_alloc['_CASH'] = 0.0
 
     # Running the simulator on the allocation frame
-    (ts_funds, ts_leverage, f_commission, f_slippage, f_borrow_cost) = qstksim.tradesim(df_alloc,
+    (ts_funds, ts_leverage, f_commission, f_slippage, f_borrow_cost) = tradesim(df_alloc,
                     df_close, f_start_cash=10000.0, i_leastcount=1, b_followleastcount=True,
                     f_slippage=0.0005, f_minimumcommision=5.0, f_commision_share=0.0035,
                     i_target_leverage=1, f_rate_borrow=3.5, log="transaction.csv")
 
-    print "Simulated Fund Time Series : "
-    print ts_funds
-    print "Transaction Costs : "
-    print "Commissions : ", f_commission
-    print "Slippage : ", f_slippage
-    print "Borrowing Cost : ", f_borrow_cost
+    print("Simulated Fund Time Series : ")
+    print(ts_funds)
+    print("Transaction Costs : ")
+    print("Commissions : ", f_commission)
+    print("Slippage : ", f_slippage)
+    print("Borrowing Cost : ", f_borrow_cost)
 
 if __name__ == '__main__':
+    print("THIS TUTORIAL IS NOT CURRENTLY FUNCTIONAL.")
+    print(" - charlesg@unixrealm.com")
+    exit()
     main()

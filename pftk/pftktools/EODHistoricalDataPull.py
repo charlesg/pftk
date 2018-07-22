@@ -48,7 +48,6 @@ def get_data(data_path, ls_symbols, key):
             url = "https://eodhistoricaldata.com/api/table.csv"
             fields = {'a':0, 'b':1, 'c':2000, 'd':_now.month-1, 'e':_now.day, 'f':_now.year, 's': symbol, 'api_token': key }
             r = requests.get(url, fields)
-            #print (r.url)
             
             df = pd.read_csv(StringIO(r.content.decode('utf-8')), skipfooter=1, parse_dates=[0], index_col=0, engine='python')
 
