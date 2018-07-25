@@ -2,6 +2,7 @@
 *.swp
 *.py[co]
 *.egg-info
+*.pdf
 
 ez_setup.pyc
 
@@ -12,3 +13,4 @@ QSTK/__init__.pyc
 dist/
 
 build/
+
