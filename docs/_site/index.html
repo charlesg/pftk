@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=18b53151ea9275e82132406ace3b8416e4399a65" media="screen" type="text/css">
-    <link rel="stylesheet" href="/assets/css/print.css" media="print" type="text/css">
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=32412af8fb8e319a528eb927b9acbf32692a5d60">
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Quick start | Python Financial Toolkit - pftk</title>
@@ -28,29 +24,29 @@
   </head>
 
   <body>
-    <header>
-      <div class="inner">
-        <a href="http://localhost:4000/">
-          <h1>Python Financial Toolkit - pftk</h1>
-        </a>
-        <h2>The Pyhon Financial Toolkit (pftk) is a Python-based open source software framework designed to support portfolio construction and management.</h2>
-        
-          <a href="http://github.com/charlesg/pftk" class="button"><small>View project on</small> GitHub</a>
-        
-        
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1 id="quick-start">Quick start</h1>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="http://github.com/charlesg/pftk">View on GitHub</a>
+
+          <h1 id="project_title">Python Financial Toolkit - pftk</h1>
+          <h2 id="project_tagline">The Pyhon Financial Toolkit (pftk) is a Python-based open source software framework designed to support portfolio construction and management.</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="quick-start">Quick start</h1>
 
 <p>If you are in a hurry, you can skip to the  <a href="/installation_guide.html">Installation Guide</a>.</p>
 
 <h1 id="about-the-python-financial-toolkit">About the Python Financial ToolKit</h1>
 
-<p>The python financial toolkit (pftk) is a fork from QSTK which I learned to use taking a course on <a href="http://www.coursera.com">Coursera</a>. Over the years, I enjoyed using the package but it was no longer developped and needed updates. I forked it to implement a few immidiate needs:</p>
+<p>The python financial toolkit (pftk) is a fork from <strong>pftk</strong> which I learned to use taking a course on <a href="http://www.coursera.com">Coursera</a>. Over the years, I enjoyed using the package but it was no longer developped and needed updates. I forked it to implement a few immidiate needs:</p>
 
 <ul>
   <li>Refresh for compatibility with more Python versions.</li>
@@ -59,17 +55,17 @@
 
 <p>Pftk is a Python-based open source software framework designed to support portfolio construction and management.</p>
 
-<p>QSTK was built primarily for finance students, computing students, and quantitative analysts with programming experience.  You should not expect to use it as a desktop app trading platform.  Instead, think of it as a software infrastructure to support a workflow of modeling, testing and trading.</p>
+<p>Pftk was built primarily for finance students, computing students, and quantitative analysts with programming experience.  You should not expect to use it as a desktop app trading platform.  Instead, think of it as a software infrastructure to support a workflow of modeling, testing and trading.</p>
 
 <ul>
-  <li>Scroll through the [[Gallery]] to see the sorts of things you can do easily with QSTK.</li>
-  <li>If you are in a hurry, you can skip to the  [[QSToolKit_Installation_Guide]].</li>
+  <li>Scroll through the <a href="/gallery.html">Gallery</a> to see the sorts of things you can do easily with <strong>pftk</strong>.</li>
+  <li>If you are in a hurry, you can skip to the <a href="/installation_guide.html">Installation Guide</a>.</li>
 </ul>
 
 <p>Key components of pftk are:</p>
 
 <ul>
-  <li><strong>Data</strong>: A data access package that enables fast reading of historical data ([[qstkutil.DataAccess]]).</li>
+  <li><strong>Data</strong>: A data access package that enables fast reading of historical data (<code class="highlighter-rouge">pftkutil.data_access</code>).</li>
   <li><strong>Processing tools</strong>: Uses <a href="http://code.google.com/p/pandas/">pandas</a>, a Python package designed for time series evaluation of equity data.</li>
   <li><strong>Portfolio optimization</strong>: Using the CVXOPT library.</li>
   <li><strong>Event studies</strong>: An efficient event analyzer, <a href="/event_profiler.html">Event Profiler</a>.</li>
@@ -78,17 +74,17 @@
 
 <h2 id="gallery">Gallery</h2>
 
-<p>Scroll through the [[Gallery]] to see the sorts of things you can do easily with QSTK.</p>
+<p>Scroll through the [[Gallery]] to see the sorts of things you can do easily with <strong>pftk</strong>.</p>
 
-<h2 id="download-installation--open-source-license">Download, Installation &amp; Open Source License==</h2>
+<h2 id="download-installation--open-source-license">Download, Installation &amp; Open Source License</h2>
 
 <ul>
   <li>pftk is released under the New BSD License. Read the [[license]].</li>
-  <li>QSTK is released under the New BSD License.</li>
+  <li>QSTK was also released under the New BSD License.</li>
   <li>Download and installation instructions are here: [[Installation_Guide]].</li>
 </ul>
 
-<h2 id="assumptions--supported-platforms">Assumptions &amp; Supported Platforms==</h2>
+<h2 id="assumptions--supported-platforms">Assumptions &amp; Supported Platforms</h2>
 
 <p>Testing was done on done on Mac OS X and Ubuntu Linux on Intel machines. We recommend a 2.0 GHz processor and 2GB of RAM as a minimum. Pftk does run on Windows machines, but we don’t guarantee it, and we can’t always help you if you run into problems.</p>
 
@@ -107,37 +103,35 @@
 <p>This page is the root page for pftk documentation.  Here are links to information about important modules and APIs:</p>
 
 <ul>
-  <li>Installation and overview information</li>
+  <li>Installation and overview information
+    <ul>
+      <li><a href="installation_guide">Installation Guide</a> for downloads and details on getting up and running.</li>
+      <li><a href="connection_with_data_sources.md">Connecting With Data Sources</a></li>
+      <li><a href="newscred_data.md">Newscred Data</a></li>
+      <li><a href="getting_yahoo_data.md">Getting Yahoo Data</a></li>
+      <li><a href="getting_compustat_data.md">Getting Compustat Data.</a></li>
+      <li><a href="workflow_guide">Work Flow Guide</a> that provides an overview of intended use of the software</li>
+    </ul>
+  </li>
+  <li>Pftk Tutorials
+    <ul>
+      <li><a href="/tutorial_1.html">Tutorial 1</a> Reading data and basic time series operations and plotting</li>
+      <li><a href="tutorial_2.md">Tutorial 2</a> Reading CSV data (not <strong>pftk</strong> specific)</li>
+      <li><a href="tutorial_3.md">Tutorial 3</a> Tips for accessing historical data via DataAccess + a quick and dirty portfolio back test</li>
+      <li><a href="tutorial_4.md">Tutorial 4</a> Creating a an equity allocation DataFrame</li>
+      <li><a href="tutorial_5.md">Tutorial 5</a> Using pftksim to back test an allocation strategy (<strong>in development</strong>)</li>
+      <li><a href="tutorial_8.md">Tutorial 8</a> Using the CVXOPT library (<strong>in development</strong>)</li>
+      <li><a href="tutorial_9.md">Tutorial 9</a> Event Profiler (<strong>in development</strong>)</li>
+      <li><a href="tutorial_10.md">Tutorial 10</a> Visualizer (<strong>in development</strong>)</li>
+    </ul>
+  </li>
+  <li>Other Tutorials
+    <ul>
+      <li><a href="">Numpy Tutorial 1</a> Working with Numpy arrays (<strong>in development</strong>)</li>
+      <li><a href="">Pandas Tutorial 1</a> Working with DataFrames (<strong>in development</strong>)</li>
+    </ul>
+  </li>
 </ul>
-
-<p>** <a href="installation_guide">Installation Guide</a> for downloads and details on getting up and running.
-** <a href="connection_with_data_sources.md">Connecting With Data Sources</a>
-** <a href="newscred_data.md">Newscred Data</a>
-** <a href="getting_yahoo_data.md">Getting Yahoo Data</a>
-** <a href="getting_compustat_data.md">Getting Compustat Data.</a>
-** <a href="workflow_guide">Work Flow Guide</a> that provides an overview of intended use of the software</p>
-
-<ul>
-  <li>QSTK Tutorials</li>
-</ul>
-
-<p>** <a href="/tutorial_1.html">Tutorial 1</a> Reading data and basic time series operations and plotting
-** <a href="tutorial_2.md">Tutorial 2</a> Reading CSV data (not QSTK specific)
-** <a href="tutorial_3.md">Tutorial 3</a> Tips for accessing historical data via DataAccess + a quick and dirty portfolio back test
-** <a href="tutorial_4.md">Tutorial 4</a> Creating a an equity allocation DataFrame
-** <a href="tutorial_5.md">Tutorial 5</a> Using qstksim to back test an allocation strategy
-** <a href="tutorial_6.md">Tutorial 6</a> Reading Compustat data  (‘'’Not in use anymore’’’)
-** <a href="tutorial_7.md">Tutorial 7</a> Using the NAG library  (‘'’Not in use anymore’’’)
-** <a href="tutorial_8.md">Tutorial 8</a> Using the CVXOPT library
-** <a href="tutorial_9.md">Tutorial 9</a> Event Profiler
-** <a href="tutorial_10.md">Tutorial 10</a> Visualizer</p>
-
-<ul>
-  <li>Other Tutorials</li>
-</ul>
-
-<p>** <a href="">Numpy Tutorial 1</a> Working with Numpy arrays
-** <a href="">Pandas Tutorial 1</a> Working with DataFrames</p>
 
 <h2 id="contributing--coding-conventions">Contributing &amp; Coding Conventions</h2>
 
@@ -175,30 +169,27 @@
 <h2 id="resources-relevant-news--links">Resources, Relevant News &amp; Links</h2>
 
 <ul>
-  <li>[[Resources]]: Additional relevant resources.</li>
-  <li>Tucker Balch’s blog [http://augmentedtrader.wordpress.com augmentedtrader.wordpress.com]</li>
-  <li>WSJ [http://online.wsj.com/article/SB10001424052748703834604575365310813948080.html?mod=WSJ_hpp_LEFTTopStories article] about AI for trading.</li>
+  <li><a href="">Resources</a>: Additional relevant resources.</li>
+  <li><a href="http://augmentedtrader.wordpress.com">Tucker Balch’s blog</a></li>
+  <li><a href="http://online.wsj.com/article/SB10001424052748703834604575365310813948080.html">WSJ Article</a> about AI for trading.</li>
 </ul>
 
-<p>Older documents</p>
+<p>Older documents:</p>
 <ul>
-  <li>[Fund Tools]</li>
-  <li>[[Work_Flow_Guide]] that provides a block diagram overview of QSTK intended use.</li>
-  <li>[[Legacy_Main_Page]]</li>
+  <li><a href="/workflow_guide.html">Workflow Guide</a> :: provides a block diagram overview of <strong>pftk</strong> intended use.</li>
 </ul>
 
-        </section>
+      </section>
+    </div>
 
-        <aside id="sidebar">
-          
-
-          
-            <p class="repo-owner"><a href="http://github.com/charlesg/pftk">pftk</a> is maintained by <a href="http://github.com/charlesg">charlesg</a>.</p>
-          
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</p>
-        </aside>
-      </div>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">Python Financial Toolkit - pftk maintained by <a href="http://github.com/charlesg">charlesg</a></p>
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
     </div>
 
     
