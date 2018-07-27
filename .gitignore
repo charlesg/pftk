@@ -17,3 +17,5 @@ dist/
 build/
 
 _site/
+
+.vscode/
