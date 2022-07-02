@@ -9,7 +9,7 @@ import os
 import getopt
 import sys
 import pandas as pd
-from pandas.compat import StringIO
+from io import StringIO
 
 __author__="charlesg"
 __date__ ="$$"
