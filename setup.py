@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.2.9'
+version = '0.5.2'
 
 setup(name='pftk',
       version=version,
@@ -19,7 +19,7 @@ setup(name='pftk',
             'Operating System :: MacOS :: MacOS X',
             'Operating System :: Microsoft :: Windows',
             'Operating System :: POSIX',
-            'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3',
             'Topic :: Utilities',
       ],
       keywords='finance sharpe portfolio allocation returns',
