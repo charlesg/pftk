@@ -1,0 +1,4 @@
+# Ignoring Gemfile and Gemfile.lock.
+# They won't be used in GitHub pages.
+Gemfile
+Gemfile.lock
