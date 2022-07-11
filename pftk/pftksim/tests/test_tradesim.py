@@ -19,8 +19,8 @@ import unittest
 import pandas as pand
 import numpy as np
 
-# QSTK imports
-import QSTK.qstksim
+# PFTK imports
+import pftk.pftksim
 
 
 class Test(unittest.TestCase):
@@ -78,14 +78,14 @@ class Test(unittest.TestCase):
     def test_buy_close(self):
         ''' Tests tradesim buy-on-open functionality '''
         (df_funds, ts_leverage, f_commision, f_slippage, f_borrow) = \
-              qstksim.tradesim( self.df_alloc, self.df_close, 10000, 1, True, 0.02,
+            pftk.pftksim.tradesim( self.df_alloc, self.df_close, 10000, 1, True, 0.02,
                            5, 0.02 )
 
-        print 'Commision Costs : ' + str(f_commision)
-        print 'Slippage : ' + str(f_slippage)
-        print 'Short Borrowing Cost : ' + str(f_borrow)
-        print 'Leverage : '	
-        print ts_leverage
+        print('Commision Costs : ' + str(f_commision))
+        print('Slippage : ' + str(f_slippage))
+        print('Short Borrowing Cost : ' + str(f_borrow))
+        print('Leverage : '	)
+        print(ts_leverage)
         np.testing.assert_approx_equal(df_funds[-1], \
              10000 * self.i_open_result, significant = 3)
         self.assertTrue(True)

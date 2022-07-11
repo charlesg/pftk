@@ -58,7 +58,7 @@ def print_header(html_file, name):
     """
     html_file.write("<HTML>\n")
     html_file.write("<HEAD>\n")
-    html_file.write("<TITLE>QSTK Generated Report:" + name + "</TITLE>\n")
+    html_file.write("<TITLE>PFTK Generated Report:" + name + "</TITLE>\n")
     html_file.write("</HEAD>\n\n")
     html_file.write("<BODY>\n\n")
 
@@ -1143,7 +1143,7 @@ def generate_robust_report(fund_matrix, out_file):
     html_file  =  open(out_file,"w")
     print_header(html_file, out_file)
     # converter.fundsToPNG(fund_matrix,'funds.png')
-    html_file.write("<H2>QSTK Generated Report:" + out_file + "</H2>\n")
+    html_file.write("<H2>PFTK Generated Report:" + out_file + "</H2>\n")
     # html_file.write("<IMG SRC = \'./funds.png\'/>\n")
     html_file.write("<IMG SRC = \'./analysis.png\'/>\n")
     html_file.write("<BR/>\n\n")

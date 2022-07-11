@@ -1,10 +1,14 @@
 #
 # Example use of the event profiler
 #
-import QSTK.qstkstudy.Events as ev
 import datetime as dt
-import QSTK.qstkstudy.EventProfiler as ep
 import numpy as np
+
+# PFTK imports
+import pftk.pftkstudy.events as ev
+import pftk.pftkstudy.event_profiler as ep
+import pftk.pftkutil.qsdateutil as du
+import pftk.pftkutil.data_access as da
 
 if __name__ == '__main__':
 

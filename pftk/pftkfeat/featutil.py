@@ -24,13 +24,14 @@ import matplotlib.pyplot as plt
 
 
 ''' Our Imports '''
-import QSTK.qstklearn.kdtknn as kdt
-from QSTK.qstkutil import DataAccess as da
-from QSTK.qstkutil import qsdateutil as du
-from QSTK.qstkutil import tsutil as tsu
+import pftk.pftklearn.kdtknn as kdt
+from pftk.pftkutil import data_access as da
+from pftk.pftkutil import qsdateutil as du
+from pftk.pftkutil import tsutil as tsu
 
-from QSTK.qstkfeat.features import *
-from QSTK.qstkfeat.classes import class_fut_ret
+from pftk.pftkfeat.features import *
+from pftk.pftkfeat.classes import class_fut_ret
+
 
 
 
@@ -114,8 +115,8 @@ def applyFeatures( dData, lfcFeatures, ldArgs, sMarketRel=None, sLog=None, bMin=
         if 'MR' in ldArgs[i]:
             
             if ldArgs[i]['MR'] == False:
-                print 'Warning, setting MR to false will still be Market Relative',\
-                      'simply do not include MR key in args'
+                print('Warning, setting MR to false will still be Market Relative',\
+                      'simply do not include MR key in args')
         
             if sMarketRel == None:
                 raise AssertionError('Functions require market relative stock but sMarketRel=None')
@@ -244,7 +245,7 @@ def stackSyms( ldfFeatures, dtStart=None, dtEnd=None, lsSym=None, sDelNan='ALL',
                   'FEAT' == sDelNan and not math.isnan( np.sum(naStkData[i,:-1]) ):
                     llValidRows.append(i)
                 elif  bShowRemoved:
-                    print 'Removed', sStock, naStkData[i,:]
+                    print('Removed', sStock, naStkData[i,:])
                         
             naStkData = naStkData[llValidRows,:]
             
@@ -295,7 +296,7 @@ def normFeatures( naFeatures, fMin, fMax, bAbsolute, bIgnoreLast=True ):
         fRange = fFeatMax - fFeatMin
         
         if fRange == 0:
-            print 'Warning, bad query data range'
+            print('Warning, bad query data range')
             fMult = 1.
             fShigt = 0.
         else:
@@ -418,7 +419,7 @@ def testFeature( fcFeature, dArgs ):
     dtEnd = dt.datetime(2011, 12, 31)
          
     ''' Pull in current training data and test data '''
-    norObj = de.DataAccess('mysql')
+    norObj = da.DataAccess('mysql')
     ''' Get 2 extra months for moving averages and future returns '''
     ldtTimestamps = du.getNYSEdays( dtStart, dtEnd, dt.timedelta(hours=16) )
     
@@ -439,13 +440,13 @@ def testFeature( fcFeature, dArgs ):
     ''' Generate a list of DataFrames, one for each feature, with the same index/column structure as price data '''
     dtStart = dt.datetime.now()
     ldfFeatures = applyFeatures( dData, [fcFeature], [dArgs], sMarketRel='$SPX' )
-    print 'Runtime:', dt.datetime.now() - dtStart
+    print('Runtime:', dt.datetime.now() - dtStart)
     
     ''' Use last 3 months of index, to avoid lookback nans '''
 
     dfPrint = ldfFeatures[0]['GOOG']
-    print 'GOOG values:', dfPrint.values
-    print 'GOOG Sum:', dfPrint.ix[dfPrint.notnull()].sum()
+    print('GOOG values:', dfPrint.values)
+    print('GOOG Sum:', dfPrint.ix[dfPrint.notnull()].sum())
     
     for sSym in lsSym:
         plt.subplot( 211 )
@@ -471,7 +472,7 @@ def speedTest(lfcFeature,ldArgs):
     '''     
 
     '''pulling out 2 years data to run test'''
-    daData = de.DataAccess('mysql')
+    daData = da.DataAccess('mysql')
     dtStart = dt.datetime(2010, 1, 1)
     dtEnd = dt.datetime(2011, 12, 31)
     dtTimeofday = dt.timedelta(hours=16)
@@ -497,7 +498,7 @@ def speedTest(lfcFeature,ldArgs):
     
     '''print out result'''
     for tResult in ltResults:
-        print tResult[1], ':', tResult[0]
+        print(tResult[1], ':', tResult[0])
     
     return ltResults
 

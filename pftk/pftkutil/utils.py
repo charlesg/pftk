@@ -9,7 +9,7 @@ Created on Apr 22, 2011
 
 @author: shreyas
 @contact: dbratcher@gatech.edu
-@summary: This is intended to be a collection of helper routines used by different QSTK modules
+@summary: This is intended to be a collection of helper routines used by different pftk modules
 '''
 
 import os

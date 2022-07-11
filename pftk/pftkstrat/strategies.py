@@ -20,8 +20,8 @@ from math import sqrt
 import numpy as np
 import pandas as pand
 
-''' QSTK imports '''
-import QSTK.qstkutil.tsutil as tsu
+''' pftk imports '''
+import pftk.pftkutil.tsutil as tsu
 
 
 def stratGiven( dtStart, dtEnd, dFuncArgs ):
@@ -33,11 +33,11 @@ def stratGiven( dtStart, dtEnd, dFuncArgs ):
     @return DataFrame corresponding to the portfolio allocations
     """    
     if not dFuncArgs.has_key('dmPrice'):
-        print 'Error: Strategy requires dmPrice information'
+        print('Error: Strategy requires dmPrice information')
         return
     
     if not dFuncArgs.has_key('lfWeights'):
-        print 'Error: Strategy requires weight information'
+        print('Error: Strategy requires weight information')
         return
     
     dmPrice = dFuncArgs['dmPrice']
@@ -61,7 +61,7 @@ def strat1OverN( dtStart, dtEnd, dFuncArgs ):
     @return DataFrame corresponding to the portfolio allocations
     """        
     if not dFuncArgs.has_key('dmPrice'):
-        print 'Error: Strategy requires dmPrice information'
+        print('Error: Strategy requires dmPrice information')
         return
     
     dmPrice = dFuncArgs['dmPrice']
@@ -86,19 +86,19 @@ def stratMark( dtStart, dtEnd, dFuncArgs ):
     @return DataFrame corresponding to the portfolio allocations
     """         
     if not dFuncArgs.has_key('dmPrice'):
-        print 'Error:', stratMark.__name__, 'requires dmPrice information'
+        print('Error:', stratMark.__name__, 'requires dmPrice information')
         return
     
     if not dFuncArgs.has_key('sPeriod'):
-        print 'Error:', stratMark.__name__, 'requires rebalancing period'
+        print('Error:', stratMark.__name__, 'requires rebalancing period')
         return
 
     if not dFuncArgs.has_key('lLookback'):
-        print 'Error:', stratMark.__name__, 'requires lookback'
+        print('Error:', stratMark.__name__, 'requires lookback')
         return
 
     if not dFuncArgs.has_key('sMarkPoint'):
-        print 'Error:', stratMark.__name__, 'requires markowitz point to choose'
+        print('Error:', stratMark.__name__, 'requires markowitz point to choose')
         return 
 
     ''' Optional variables '''
@@ -121,7 +121,7 @@ def stratMark( dtStart, dtEnd, dFuncArgs ):
         dtStart = dtDate - pand.DateOffset(days=lLookback)
         
         if( dtStart < dmPrice.index[0] ):
-            print 'Error, not enough data to rebalance'
+            print('Error, not enough data to rebalance')
             continue  
        
         naRets = dmPrice.ix[ dtStart:dtDate ].values.copy()
@@ -145,7 +145,7 @@ def stratMark( dtStart, dtEnd, dFuncArgs ):
                 
 
         ''' Generate the efficient frontier '''
-        (lfReturn, lfStd, lnaPortfolios) = getFrontier( naRets, fUpper=0.2, fLower=0.01 )
+        (lfReturn, lfStd, lnaPortfolios) = tsu.getFrontier( naRets, fUpper=0.2, fLower=0.01 )
         
         lInd = 0
         
@@ -184,7 +184,7 @@ def stratMark( dtStart, dtEnd, dFuncArgs ):
             lInd = 0    
                 
         else:
-            print 'Warning: invalid sMarkPoint'''
+            print('Warning: invalid sMarkPoint''')
             return
     
         

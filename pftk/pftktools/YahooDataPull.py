@@ -2,12 +2,10 @@
 Pulling Yahoo CSV Data
 '''
 
-import urllib2
-import urllib
+import urllib3
 import datetime
 import os
-import QSTK.qstkutil.DataAccess as da
-
+import pftk.pftkutil.data_access as da
 
 def get_yahoo_data(data_path, ls_symbols):
     '''Read data from Yahoo
@@ -35,14 +33,12 @@ def get_yahoo_data(data_path, ls_symbols):
         # print "Getting {0}".format(symbol)
 
         try:
-            params = urllib.urlencode ({'a':0, 'b':1, 'c':2000, 'd':_now.month-1, 'e':_now.day, 'f':_now.year, 's': symbol})
-            url = "http://ichart.finance.yahoo.com/table.csv?%s" % params
-            url_get = urllib2.urlopen(url)
-            
-            header = url_get.readline()
-            symbol_data.append (url_get.readline())
+            url = "http://ichart.finance.yahoo.com/table.csv"
+            http = urllib3.PoolManager()
+            response = http.request('POST', url, fields={'a':0, 'b':1, 'c':2000, 'd':_now.month-1, 'e':_now.day, 'f':_now.year, 's': symbol})
+            symbol_data.append (response.readline)
             while (len(symbol_data[-1]) > 0):
-                symbol_data.append(url_get.readline())
+                symbol_data.append(response.readline())
 
             # The last element is going to be the string of length zero. 
             # We don't want to write that to file.
@@ -51,23 +47,23 @@ def get_yahoo_data(data_path, ls_symbols):
             f = open (data_path + symbol_name + ".csv", 'w')
 
             #Writing the header
-            f.write (header)
+            f.write (response.header)
 
             while (len(symbol_data) > 0):
                 f.write (symbol_data.pop(0))
 
             f.close()
 
-        except urllib2.HTTPError:
+        except urllib3.exceptions.HTTPError:
             miss_ctr += 1
             ls_missed_syms.append(symbol_name)
-            print "Unable to fetch data for stock: {0} at {1}".format(symbol_name, url)
-        except urllib2.URLError:
+            print("Unable to fetch data for stock: {0} at {1}".format(symbol_name, url))
+        except urllib3.exceptions.URLError:
             miss_ctr += 1
             ls_missed_syms.append(symbol_name)
-            print "URL Error for stock: {0} at {1}".format(symbol_name, url)
+            print("URL Error for stock: {0} at {1}".format(symbol_name, url))
 
-    print "All done. Got {0} stocks. Could not get {1}".format(len(ls_symbols) - miss_ctr, miss_ctr)
+    print("All done. Got {0} stocks. Could not get {1}".format(len(ls_symbols) - miss_ctr, miss_ctr))
     return ls_missed_syms
 
 

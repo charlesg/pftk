@@ -8,27 +8,32 @@ Created on Jun 1, 2010
 #Due to the momentary lack of a HDF viewer that installs/works without hassle- I decided to write a little something to check if the alpha 
 #values were being written properly
 
-#Main begins
-#from DataAccess import *
-#import DataAccessNew as da
-import QSTK.qstkutil.DataAccess as da
-import tables as pt
+import pftk.pftkutil.data_access as da
 import numpy as np
 from itertools import izip 
 import time
-import dircache
+import os
+
+global_cache = {}
+
+def cached_listdir(path):
+     res = global_cache.get(path)
+     if res is None:
+         res = os.listdir(path)
+         global_cache[path] = res
+     return res
 
 def getStocks(listOfPaths):
         
             listOfStocks=list()
             #Path does not exist
-            print "Reading in all stock names..."
+            print("Reading in all stock names...")
             fileExtensionToRemove=".h5"   
             
             for path in listOfPaths:
                stocksAtThisPath=list ()
                
-               stocksAtThisPath= dircache.listdir(str(path))
+               stocksAtThisPath= cached_listdir(str(path))
                #Next, throw away everything that is not a .h5 And these are our stocks!
                stocksAtThisPath = filter (lambda x:(str(x).find(str(fileExtensionToRemove)) > -1), stocksAtThisPath)
                #Now, we remove the .h5 to get the name of the stock
@@ -44,7 +49,7 @@ def getStocks(listOfPaths):
 
 if __name__ == '__main__':
 	
-	print "Starting..."
+	print("Starting...")
 	dataItemsList=[]
 	
 	dataItemsList.append('alphaValue')
@@ -97,10 +102,9 @@ if __name__ == '__main__':
 	
 	listOfTS= alpha.getTimestampArray()
 	for stock in ["AAPL"]:
-	            alphaList= alpha.getStockDataList(stock, 'volume')
-	            ctr=0
-	            for val in alphaList:
-	                print "stock: " + str(stock) + ", val: "+str(val) + ", ts: " + str(listOfTS[ctr])
-	                ctr+=1
-	                
-	print "DONE!"                
+		alphaList= alpha.getStockDataList(stock, 'volume')
+		ctr=0
+		for val in alphaList:
+			print("stock: " + str(stock) + ", val: "+str(val) + ", ts: " + str(listOfTS[ctr]))
+			ctr+=1
+	print("DONE!")

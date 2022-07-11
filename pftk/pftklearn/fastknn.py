@@ -179,8 +179,8 @@ class FastKNN:
 				class_count[clss] = tmp+1
 			bleh = max(class_count.iteritems(),key=lambda item:item[1])
 			if dumdumcheck and bleh[1] == 1:
-				print "aHAH!"
-				print point
+				print("aHAH!")
+				print(point)
 			rv = bleh[0]
 		elif method == 'mean':
 			return sum([self.data_classes[n[1]] for n in neighbors])/float(k)
@@ -203,8 +203,8 @@ def testwine():
 	leftout = int(len(wqred)*leftoutperc)
 	testing = wqred[:leftout]
 	training = wqred[leftout:]
-	print "Training:",len(training)
-	print "Testing:",len(testing)
+	print("Training:",len(training))
+	print("Testing:",len(testing))
 	foo = FastKNN(10)
 	foo.addEvidence(numpy.array([thing[:-1] for thing in training]), [thing[-1] for thing in training])
 	knn.addEvidence(numpy.array(training))
@@ -221,13 +221,13 @@ def testwine():
 			correct += 1
 		total += 1
 		if total % 50 == 0:
-			print total,'/',len(testing)
-	print correct,"/",total,":",float(correct)/float(total)
-	print "Average checks per query:", float(foo.num_checks)/float(total)
+			print(total,'/',len(testing))
+	print(correct,"/",total,":",float(correct)/float(total))
+	print("Average checks per query:", float(foo.num_checks)/float(total))
 	
 def testspiral():
 	for leftout in xrange(1,11):
-		print "Fold",leftout
+		print("Fold",leftout)
 		foo = FastKNN(10)
 		for x in xrange(1,11):
 			if x != leftout:
@@ -256,9 +256,9 @@ def testspiral():
 			if guess == pbbbt:
 				correct += 1
 			total += 1
-		print correct,"/",total,":",float(correct)/float(total)
-		print "Average number of checks per query:", 
-		print float(foo.num_checks)/float(total)
+		print(correct,"/",total,":",float(correct)/float(total))
+		print("Average number of checks per query:",)
+		print(float(foo.num_checks)/float(total))
 
 def getflatcsv(fname):
 	inf = open(fname)
@@ -280,9 +280,9 @@ def testgendata():
 		pnt = numpy.array(gendata.gensingle(d,bnds,clsses))
 		foo.query(pnt[:-1])
 		if x % 50 == 0:
-			print float(foo.num_checks)/float(x+1),
-			print x,"/",querys
-	print "Average # queries:", float(foo.num_checks)/float(querys)
+			print(float(foo.num_checks)/float(x+1),)
+			print(x,"/",querys)
+	print("Average # queries:", float(foo.num_checks)/float(querys))
 	
 	
 

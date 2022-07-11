@@ -201,8 +201,8 @@ def _test1():
             
             naBoth[500:,0] = naBoth[500:,0] - .1
 
-        print 'Runtime OneKnn:', cOneRuntime
-        print 'Runtime 5-KNN:', cKnnRuntime   
+        print('Runtime OneKnn:', cOneRuntime)
+        print('Runtime 5-KNN:', cKnnRuntime)
         _plotResults( naTest1, naTest2, lfResults, lfKnnResults )
 
 ''' Tests performance of 1-KNN '''
