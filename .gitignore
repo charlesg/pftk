@@ -19,3 +19,8 @@ build/
 _site/
 
 .vscode/
+
+# Environment files - DO NOT COMMIT API KEYS
+.env
+.env.local
+.env.*.local

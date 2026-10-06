@@ -1,5 +1,5 @@
 '''
-(c) 2018, charlesg@unixrealm.com - Fork from QSTK
+(c) 2018-26, charlesg@unixrealm.com - Fork from QSTK
 https://charlesg.github.io/pftk/
 
 (c) 2011, 2012 Georgia Tech Research Corporation
@@ -24,6 +24,28 @@ import tempfile
 import copy
 
 import pftk.pftkutil.utils as utils
+
+# Prices for DB-backed sources (currently EODHistoricalData) live in one DuckDB file.
+SCHEMA = """CREATE TABLE IF NOT EXISTS prices (
+  source VARCHAR, symbol VARCHAR, date DATE,
+  open DOUBLE, high DOUBLE, low DOUBLE, close DOUBLE, adj_close DOUBLE, volume DOUBLE,
+  PRIMARY KEY (source, symbol, date))"""
+
+def get_db_path():
+    '''DuckDB file: $PFTK_DB, else the nearest market.duckdb in the current directory or its
+    parents, else ./market.duckdb.'''
+    if 'PFTK_DB' in os.environ:
+        return os.environ['PFTK_DB']
+    d = os.getcwd()
+    while True:
+        f = os.path.join(d, 'market.duckdb')
+        if os.path.exists(f):
+            return f
+        parent = os.path.dirname(d)
+        if parent == d:
+            return 'market.duckdb'
+        d = parent
+
 
 class Exchange (object):
     AMEX = 1
@@ -98,7 +120,7 @@ class DataAccess(object):
             print("Scratch Directory: ", self.scratchdir)
             print("Data Directory: ", self.rootdir)
 
-        if not os.path.isdir(self.rootdir):
+        if sourcein != DataSource.EOD and not os.path.isdir(self.rootdir):
             try:
                 raise Exception("Data path provided is invalid: ", self.rootdir)
             except:
@@ -183,7 +205,7 @@ class DataAccess(object):
         all_stocks_data = []
         for i in range( len(data_item) ):
             all_stocks_data.append( np.zeros ((len(ts_list), len(symbol_list))) )
-            all_stocks_data[i][:][:] = np.NAN
+            all_stocks_data[i][:][:] = np.nan
         
         list_index= []
         
@@ -264,54 +286,44 @@ class DataAccess(object):
         for symbol in symbol_list:
             _file = None
             symbol_ctr = symbol_ctr + 1
-            #print self.getPathOfFile(symbol)
-            try:
-                if (self.source == DataSource.CUSTOM) or (self.source == DataSource.MLT)or (self.source == DataSource.YAHOO):
-                    file_path= self.getPathOfCSVFile(symbol)
-                else:
-                    file_path= self.getPathOfFile(symbol)
+            if self.source == DataSource.EOD:
+                naData = self._read_eod_db(symbol)
+                if naData is None:
+                    continue
+            else:
+                #print self.getPathOfFile(symbol)
+                try:
+                    if (self.source == DataSource.CUSTOM) or (self.source == DataSource.MLT)or (self.source == DataSource.YAHOO):
+                        file_path= self.getPathOfCSVFile(symbol)
+                    else:
+                        file_path= self.getPathOfFile(symbol)
                 
-                ''' Get list of other files if we also want to include delisted '''
-                if bIncDelist:
-                    lsDelPaths = self.getPathOfFile( symbol, True )
-                    if file_path == None and len(lsDelPaths) > 0:
-                        print('Found delisted paths:'), lsDelPaths
+                    ''' Get list of other files if we also want to include delisted '''
+                    if bIncDelist:
+                        lsDelPaths = self.getPathOfFile( symbol, True )
+                        if file_path == None and len(lsDelPaths) > 0:
+                            print('Found delisted paths:'), lsDelPaths
                 
-                ''' If we don't have a file path continue... unless we have delisted paths '''
-                if (type (file_path) != type ("random string")):
-                    if bIncDelist == False or len(lsDelPaths) == 0:
-                        continue #File not found
+                    ''' If we don't have a file path continue... unless we have delisted paths '''
+                    if (type (file_path) != type ("random string")):
+                        if bIncDelist == False or len(lsDelPaths) == 0:
+                            continue #File not found
                 
-                if not file_path == None: 
-                    _file = open(file_path, "r")
-            except IOError:
-                # If unable to read then continue. The value for this stock will be nan
-                print(_file)
-                continue
+                    if not file_path == None: 
+                        _file = open(file_path, "r")
+                except IOError:
+                    # If unable to read then continue. The value for this stock will be nan
+                    print(_file)
+                    continue
                 
-            assert( not _file == None or bIncDelist == True )
-            ''' Open the file only if we have a valid name, otherwise we need delisted data '''
-            if _file != None:
-                if (self.source==DataSource.CUSTOM) or (self.source==DataSource.YAHOO) or (self.source==DataSource.MLT) or (self.source==DataSource.EOD):
-                    creader = csv.reader(_file)
-                    row=next(creader)
-                    row=next(creader)
-                    #row.pop(0)
-                    for i, item in enumerate(row):
-                        if i==0:
-                            try:
-                                date = dt.datetime.strptime(item, '%Y-%m-%d')
-                                date = date.strftime('%Y%m%d')
-                                row[i] = float(date)
-                            except:
-                                date = dt.datetime.strptime(item, '%m/%d/%y')
-                                date = date.strftime('%Y%m%d')
-                                row[i] = float(date)
-                        else:
-                            if(item == ""): item = "NaN"
-                            row[i]=float(item)
-                    naData=np.array(row)
-                    for row in creader:
+                assert( not _file == None or bIncDelist == True )
+                ''' Open the file only if we have a valid name, otherwise we need delisted data '''
+                if _file != None:
+                    if (self.source==DataSource.CUSTOM) or (self.source==DataSource.YAHOO) or (self.source==DataSource.MLT) or (self.source==DataSource.EOD):
+                        creader = csv.reader(_file)
+                        row=next(creader)
+                        row=next(creader)
+                        #row.pop(0)
                         for i, item in enumerate(row):
                             if i==0:
                                 try:
@@ -325,25 +337,40 @@ class DataAccess(object):
                             else:
                                 if(item == ""): item = "NaN"
                                 row[i]=float(item)
-                        naData=np.vstack([np.array(row),naData])
-                else:
-                    naData = pkl.load (_file)
-                _file.close()
-            else:
-                naData = None
-                
-            ''' If we have delisted data, prepend to the current data '''
-            if bIncDelist == True and len(lsDelPaths) > 0 and naData == None:
-                for sFile in lsDelPaths[-1:]:
-                    ''' Changed to only use NEWEST data since sometimes there is overlap (JAVA) '''
-                    inFile = open( sFile, "rb" )
-                    naPrepend = pkl.load( inFile )
-                    inFile.close()
-                    
-                    if naData == None:
-                        naData = naPrepend
+                        naData=np.array(row)
+                        for row in creader:
+                            for i, item in enumerate(row):
+                                if i==0:
+                                    try:
+                                        date = dt.datetime.strptime(item, '%Y-%m-%d')
+                                        date = date.strftime('%Y%m%d')
+                                        row[i] = float(date)
+                                    except:
+                                        date = dt.datetime.strptime(item, '%m/%d/%y')
+                                        date = date.strftime('%Y%m%d')
+                                        row[i] = float(date)
+                                else:
+                                    if(item == ""): item = "NaN"
+                                    row[i]=float(item)
+                            naData=np.vstack([np.array(row),naData])
                     else:
-                        naData = np.vstack( (naPrepend, naData) )
+                        naData = pkl.load (_file)
+                    _file.close()
+                else:
+                    naData = None
+                
+                ''' If we have delisted data, prepend to the current data '''
+                if bIncDelist == True and len(lsDelPaths) > 0 and naData == None:
+                    for sFile in lsDelPaths[-1:]:
+                        ''' Changed to only use NEWEST data since sometimes there is overlap (JAVA) '''
+                        inFile = open( sFile, "rb" )
+                        naPrepend = pkl.load( inFile )
+                        inFile.close()
+                    
+                        if naData == None:
+                            naData = naPrepend
+                        else:
+                            naData = np.vstack( (naPrepend, naData) )
                         
             #now remove all the columns except the timestamps and one data column
             if verbose:
@@ -448,6 +475,24 @@ class DataAccess(object):
         
         #get_data_hardread ends
 
+    def _read_eod_db(self, symbol):
+        '''Rows for one symbol from the DuckDB prices table, oldest first, as
+        [yyyymmdd, open, high, low, close, adj_close, volume]. None if missing.'''
+        import duckdb
+        db = get_db_path()
+        if not os.path.exists(db):
+            raise FileNotFoundError("No price database at %s. Run EODHistoricalDataPull.py first, or set PFTK_DB (otherwise market.duckdb is searched for from the current directory upward)." % db)
+        con = duckdb.connect(db, read_only=True)
+        try:
+            df = con.execute("SELECT CAST(strftime(date, '%Y%m%d') AS DOUBLE), open, high, low, close, adj_close, volume "
+                             "FROM prices WHERE source=? AND symbol=? ORDER BY date", [self.source, symbol]).fetchdf()
+        finally:
+            con.close()
+        if df.empty:
+            print("Did not find data for " + str(symbol) + " in " + db)
+            return None
+        return df.to_numpy(dtype=float)
+
     def get_data (self, ts_list, symbol_list, data_item, verbose=False, bIncDelist=False):
         '''
         Read data into a DataFrame, but check to see if it is in a cache first.
@@ -466,6 +511,13 @@ class DataAccess(object):
         # the data has already been created and we can just read that file.
 
         ls_syms_copy = copy.deepcopy(symbol_list)
+
+        # DuckDB reads are fast and the cache key below is per-process (hash()), so skip the cache for EOD.
+        if self.source == DataSource.EOD:
+            retval = self.get_data_hardread(ts_list, symbol_list, data_item, verbose, bIncDelist)
+            if type(retval) == type([]):
+                return [df.reindex(columns=ls_syms_copy) for df in retval]
+            return retval.reindex(columns=ls_syms_copy)
 
         # Create the hash for the symbols
         hashsyms = 0
@@ -581,7 +633,7 @@ class DataAccess(object):
                     continue
 
                 for sFile in utils.cached_listdir(sPath):
-                    if not re.match( '%s-\d*.pkl'%symbol_name, sFile ) == None:
+                    if not re.match( r'%s-\d*.pkl'%symbol_name, sFile ) == None:
                         lsPaths.append(sPath + sFile)
 
             lsPaths.sort()
@@ -606,6 +658,13 @@ class DataAccess(object):
         '''
 
         listOfStocks = list()
+        if self.source == DataSource.EOD:
+            import duckdb
+            con = duckdb.connect(get_db_path(), read_only=True)
+            try:
+                return [r[0] for r in con.execute("SELECT DISTINCT symbol FROM prices WHERE source=? ORDER BY symbol", [self.source]).fetchall()]
+            finally:
+                con.close()
         #Path does not exist
 
         if (len(self.folderList) == 0):
