@@ -35,9 +35,12 @@ setup(name='pftk',
             "numpy >= 1.6.1",
             "scipy >= 0.9.0",
             "matplotlib >= 1.1.0",
-            "pandas >= 0.7.3",
+            "pandas >= 0.7.3, < 3",
             "python-dateutil >= 1.5",
             "scikit-learn >= 0.11",
+            "duckdb >= 1.5.6",
+            "requests >= 2.33.0",
+            "urllib3 >= 2.8.0",
       ],
       entry_points="""
       # -*- Entry points: -*-
